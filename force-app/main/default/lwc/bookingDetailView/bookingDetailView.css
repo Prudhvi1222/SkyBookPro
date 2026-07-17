@@ -1,0 +1,186 @@
+/* ==========================================================================
+   Booking Detail View — "Aurora Night" dark premium theme
+   ========================================================================== */
+
+:host {
+    --sb-primary: #4F46E5;
+    --sb-primary-light: #818CF8;
+    --sb-cyan: #06B6D4;
+    --sb-accent: #FB923C;
+    --sb-success: #10B981;
+    --sb-warning: #F59E0B;
+    --sb-gradient-brand: linear-gradient(120deg, #2E2A8F 0%, #4C1D8F 50%, #075A73 100%);
+    --sb-gradient-price: linear-gradient(120deg, #818CF8 0%, #67E8F9 100%);
+    --sb-surface: rgba(255,255,255,0.035);
+    --sb-border: rgba(255,255,255,0.10);
+    --sb-text-strong: #F5F5FF;
+    --sb-text-muted: #A6A8D4;
+    color-scheme: dark;
+}
+
+.bdv-card {
+    border-radius: 1.5rem !important;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 24px 60px rgba(0,0,0,0.45) !important;
+    background: linear-gradient(180deg, rgba(12,12,26,0.94) 0%, rgba(6,6,16,0.96) 100%) !important;
+}
+
+.bdv-card .slds-card__header-title,
+.bdv-card .slds-card__header a {
+    color: var(--sb-text-strong) !important;
+    font-family: 'Sora', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 700;
+}
+
+.bdv-loading {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+/* ---------- Sections ---------- */
+.bdv-section {
+    background: rgba(255,255,255,0.028);
+    border: 1px solid var(--sb-border);
+    border-radius: 1.15rem;
+    padding: 1.35rem 1.5rem;
+    animation: bdvRise .4s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+@keyframes bdvRise {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.bdv-section-summary {
+    background: linear-gradient(120deg, rgba(79,70,229,0.12), rgba(6,182,212,0.08));
+}
+
+.bdv-section-flight {
+    position: relative;
+    overflow: hidden;
+    background: var(--sb-gradient-brand);
+    color: #FFFFFF;
+    border: 1px solid rgba(255,255,255,0.12);
+}
+
+.bdv-flight-watermark {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 100px;
+    height: 100px;
+    opacity: 0.16;
+    transform: rotate(35deg);
+    pointer-events: none;
+}
+
+.bdv-section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--sb-text-strong);
+    margin-bottom: 1rem;
+}
+
+.bdv-section-title-light {
+    color: #FFFFFF;
+}
+
+.bdv-section-title-warning {
+    color: var(--sb-warning);
+}
+
+.bdv-section-icon {
+    width: 1.35rem;
+    height: 1.35rem;
+    color: var(--sb-primary-light);
+    flex-shrink: 0;
+}
+
+/* ---------- Grid of fields ---------- */
+.bdv-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.9rem 1.5rem;
+}
+
+.bdv-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.bdv-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    color: var(--sb-text-muted);
+}
+
+.bdv-value {
+    font-weight: 600;
+    color: var(--sb-text-strong);
+}
+
+.bdv-grid-flight .bdv-label {
+    color: rgba(255,255,255,0.75);
+}
+
+.bdv-grid-flight .bdv-value {
+    color: #FFFFFF;
+}
+
+.bdv-item-total .bdv-value {
+    font-size: 1.15rem;
+}
+
+.bdv-total {
+    background: var(--sb-gradient-price);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.bdv-status-pill {
+    display: inline-flex;
+    width: fit-content;
+    padding: 0.15rem 0.65rem;
+    border-radius: 999px;
+    background: rgba(16, 185, 129, 0.16);
+    color: #34D399;
+    font-size: 0.85rem;
+}
+
+/* ---------- Cancellation box ---------- */
+.bdv-cancel-box {
+    background: rgba(245, 158, 11, 0.10);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    border-left: 4px solid var(--sb-warning);
+    border-radius: 0.85rem;
+    padding: 1rem 1.25rem;
+    color: var(--sb-text-strong);
+}
+
+/* ---------- Error ---------- */
+.bdv-error {
+    border-radius: 0.85rem;
+}
+
+/* ---------- Actions ---------- */
+.bdv-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.bdv-btn-close {
+    --slds-c-button-radius-border: 999px;
+    --slds-c-button-color-border: var(--sb-border);
+    --slds-c-button-color-background: rgba(255,255,255,0.04);
+    --slds-c-button-text-color: var(--sb-text-strong);
+}

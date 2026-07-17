@@ -1,0 +1,114 @@
+<template>
+    <lightning-card title="Agent Dashboard" icon-name="standard:dashboard" class="ad-card">
+        <div class="slds-p-around_medium ad-container">
+
+            <template if:true={isLoading}>
+                <div class="ad-loading">
+                    <lightning-spinner
+                        alternative-text="Loading agent dashboard"
+                        size="medium">
+                    </lightning-spinner>
+                </div>
+            </template>
+
+            <div class="slds-grid slds-wrap slds-gutters">
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                    <div class="ad-stat-tile ad-stat-blue">
+                        <svg class="ad-stat-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path fill="currentColor" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"></path>
+                        </svg>
+                        <p class="ad-stat-label">Today's Bookings</p>
+                        <p class="ad-stat-value">{todaysBookingsCount}</p>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                    <div class="ad-stat-tile ad-stat-teal">
+                        <svg class="ad-stat-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path fill="currentColor" d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"></path>
+                        </svg>
+                        <p class="ad-stat-label">Today's Revenue</p>
+                        <p class="ad-stat-value">{todaysRevenue}</p>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                    <div class="ad-stat-tile ad-stat-purple">
+                        <svg class="ad-stat-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path fill="currentColor" d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                        </svg>
+                        <p class="ad-stat-label">Confirmed Bookings</p>
+                        <p class="ad-stat-value">{confirmedCount}</p>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-4">
+                    <div class="ad-stat-tile ad-stat-amber">
+                        <svg class="ad-stat-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path fill="currentColor" d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                        </svg>
+                        <p class="ad-stat-label">Cancelled Bookings</p>
+                        <p class="ad-stat-value">{cancelledCount}</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="ad-actions-card slds-m-top_medium">
+                <h2 class="ad-section-title slds-text-heading_small slds-m-bottom_small">
+                    Quick Actions
+                </h2>
+
+                <lightning-button
+                    variant="brand"
+                    class="ad-btn-brand"
+                    label="Search New Flight"
+                    icon-name="utility:search"
+                    onclick={handleSearchNewFlight}>
+                </lightning-button>
+
+                <lightning-button
+                    class="ad-btn-refresh slds-m-left_small"
+                    label="Refresh Dashboard"
+                    icon-name="utility:refresh"
+                    onclick={handleManualRefresh}>
+                </lightning-button>
+            </div>
+
+            <template if:true={lastMessage}>
+                <div class="ad-info-box slds-m-top_medium">
+                    <span class="slds-assistive-text">Info</span>
+                    {lastMessage}
+                </div>
+            </template>
+
+            <div class="slds-m-top_medium">
+                <h2 class="ad-section-title slds-text-heading_small slds-m-bottom_small">
+                    Recent Bookings
+                </h2>
+
+                <template if:true={hasRecentBookings}>
+                    <div class="ad-table-wrap">
+                        <lightning-datatable
+                            key-field="Id"
+                            data={recentBookings}
+                            columns={columns}
+                            hide-checkbox-column>
+                        </lightning-datatable>
+                    </div>
+                </template>
+
+                <template if:false={hasRecentBookings}>
+                    <div class="ad-empty-state slds-text-align_center">
+                        <svg class="ad-empty-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path fill="currentColor" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"></path>
+                        </svg>
+                        <p class="ad-empty-text">No recent bookings found.</p>
+                    </div>
+                </template>
+            </div>
+
+        </div>
+    </lightning-card>
+</template>

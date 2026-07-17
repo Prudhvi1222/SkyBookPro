@@ -1,0 +1,194 @@
+/* ==========================================================================
+   Agent Dashboard — "Aurora Night" dark premium theme
+   ========================================================================== */
+
+:host {
+    --sb-primary: #4F46E5;
+    --sb-primary-light: #818CF8;
+    --sb-violet: #7C3AED;
+    --sb-cyan: #06B6D4;
+    --sb-accent: #FB923C;
+    --sb-gold: #F59E0B;
+    --sb-success: #10B981;
+    --sb-gradient-brand: linear-gradient(120deg, #2E2A8F 0%, #4C1D8F 50%, #075A73 100%);
+    --sb-surface: rgba(255,255,255,0.035);
+    --sb-border: rgba(255,255,255,0.10);
+    --sb-text-strong: #F5F5FF;
+    --sb-text-muted: #A6A8D4;
+    color-scheme: dark;
+}
+
+.ad-card {
+    border-radius: 1.5rem !important;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 24px 60px rgba(0,0,0,0.45) !important;
+    overflow: hidden;
+    background: linear-gradient(180deg, rgba(12,12,26,0.94) 0%, rgba(6,6,16,0.96) 100%) !important;
+}
+
+.ad-card .slds-card__header {
+    background: linear-gradient(180deg, rgba(99,102,241,0.12), transparent);
+    border-bottom: 1px solid var(--sb-border);
+}
+
+.ad-card .slds-card__header-title,
+.ad-card .slds-card__header a {
+    color: var(--sb-text-strong) !important;
+    font-family: 'Space Grotesk', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 700;
+}
+
+.ad-loading {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+/* ---------- Stat tiles ---------- */
+.ad-stat-tile {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.15rem;
+    padding: 1.35rem 1.25rem;
+    height: 100%;
+    color: #FFFFFF;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.4);
+    transition: transform .22s cubic-bezier(.22,1,.36,1), box-shadow .22s ease;
+    animation: adRise .45s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+@keyframes adRise {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.ad-stat-tile:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 22px 46px rgba(0, 0, 0, 0.55);
+}
+
+.ad-stat-blue { background: linear-gradient(135deg, #4338CA, #6366F1); }
+.ad-stat-purple { background: linear-gradient(135deg, #7C3AED, #A855F7); }
+.ad-stat-teal { background: linear-gradient(135deg, #0E7490, #06B6D4); }
+.ad-stat-amber { background: linear-gradient(135deg, #D97706, #FB923C); }
+
+.ad-stat-icon {
+    width: 2.1rem;
+    height: 2.1rem;
+    opacity: 0.9;
+    margin-bottom: 0.6rem;
+}
+
+.ad-stat-label {
+    font-size: 0.8rem;
+    opacity: 0.92;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.ad-stat-value {
+    font-family: 'Space Grotesk', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-top: 0.2rem;
+    letter-spacing: -0.01em;
+}
+
+/* ---------- Actions card ---------- */
+.ad-actions-card {
+    background: linear-gradient(120deg, rgba(79,70,229,0.10), rgba(6,182,212,0.08));
+    border: 1px solid var(--sb-border);
+    border-radius: 1.15rem;
+    padding: 1.35rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.ad-section-title {
+    color: var(--sb-text-strong);
+    font-weight: 700;
+}
+
+.ad-btn-brand {
+    --slds-c-button-brand-color-background: var(--sb-primary);
+    --slds-c-button-brand-color-background-hover: #3730A3;
+    --slds-c-button-brand-color-border: var(--sb-primary);
+    --slds-c-button-radius-border: 999px;
+    box-shadow: 0 10px 26px rgba(79, 70, 229, 0.4);
+    transition: transform .18s ease;
+}
+
+.ad-btn-brand:hover {
+    transform: translateY(-2px);
+}
+
+.ad-btn-refresh {
+    --slds-c-button-radius-border: 999px;
+    --slds-c-button-color-border: var(--sb-border);
+    --slds-c-button-color-background: rgba(255,255,255,0.04);
+    --slds-c-button-text-color: var(--sb-text-strong);
+    transition: transform .18s ease;
+}
+
+.ad-btn-refresh:hover {
+    transform: translateY(-2px) rotate(20deg);
+}
+
+/* ---------- Info box ---------- */
+.ad-info-box {
+    background: rgba(6, 182, 212, 0.12);
+    border: 1px solid rgba(6, 182, 212, 0.35);
+    border-radius: 0.85rem;
+    padding: 0.75rem 1rem;
+    color: #67E8F9;
+    font-weight: 600;
+    animation: adRise .3s ease;
+}
+
+/* ---------- Table ---------- */
+.ad-table-wrap {
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--sb-border);
+}
+
+.ad-table-wrap lightning-datatable {
+    --slds-c-table-color-border: var(--sb-border);
+    --slds-c-table-header-color-background: rgba(255,255,255,0.04);
+    --slds-c-table-header-text-color: var(--sb-text-strong);
+    --slds-c-table-cell-color-background: transparent;
+    --slds-c-table-text-color: var(--sb-text-strong);
+    --slds-c-table-row-color-background-hover: rgba(129,140,248,0.08);
+    color-scheme: dark;
+}
+
+/* ---------- Empty state ---------- */
+.ad-empty-state {
+    background: linear-gradient(135deg, rgba(99,102,241,0.08), rgba(6,182,212,0.05));
+    border: 2px dashed rgba(129, 140, 248, 0.3);
+    border-radius: 1.15rem;
+    padding: 2.25rem 1rem;
+}
+
+.ad-empty-icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    color: var(--sb-primary-light);
+    opacity: 0.7;
+    margin: 0 auto 0.75rem;
+    display: block;
+    transform: rotate(35deg);
+}
+
+.ad-empty-text {
+    color: var(--sb-text-muted);
+    font-weight: 500;
+}
+
+@media (max-width: 480px) {
+    .ad-stat-value {
+        font-size: 1.6rem;
+    }
+}

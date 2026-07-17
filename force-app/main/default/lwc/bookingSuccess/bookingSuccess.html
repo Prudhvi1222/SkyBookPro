@@ -1,0 +1,113 @@
+<template>
+    <div class="bs-container">
+        <div class="bs-confetti" aria-hidden="true">
+            <span class="bs-dot bs-dot-1"></span>
+            <span class="bs-dot bs-dot-2"></span>
+            <span class="bs-dot bs-dot-3"></span>
+            <span class="bs-dot bs-dot-4"></span>
+            <span class="bs-dot bs-dot-5"></span>
+            <span class="bs-dot bs-dot-6"></span>
+        </div>
+
+        <div class="bs-check-badge">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path fill="currentColor" d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+            </svg>
+        </div>
+
+        <h2 class="bs-title">
+            Booking Confirmed!
+        </h2>
+        <p class="bs-subtitle">
+            Your seat is locked in — get ready for takeoff.
+        </p>
+
+        <div class="bs-ticket slds-m-top_large">
+            <div class="bs-ticket-main">
+                <div class="bs-ticket-row bs-ticket-ref">
+                    <span class="bs-label">Booking reference</span>
+                    <span class="bs-ref-value">{booking.Name}</span>
+                </div>
+
+                <div class="bs-ticket-route">
+                    <div class="bs-route-point">
+                        <span class="bs-route-code">{selectedOffer.origin}</span>
+                        <span class="bs-label">From</span>
+                    </div>
+                    <div class="bs-route-line">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path fill="currentColor" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"></path>
+                        </svg>
+                    </div>
+                    <div class="bs-route-point bs-route-point-right">
+                        <span class="bs-route-code">{selectedOffer.destination}</span>
+                        <span class="bs-label">To</span>
+                    </div>
+                </div>
+
+                <p class="bs-airline">{selectedOffer.airline}</p>
+
+                <template if:true={isRoundTrip}>
+                    <div class="bs-ticket-route bs-ticket-route-return slds-m-top_small">
+                        <div class="bs-route-point">
+                            <span class="bs-route-code">{selectedOffer.returnOrigin}</span>
+                            <span class="bs-label">From</span>
+                        </div>
+                        <div class="bs-route-line">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path fill="currentColor" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"></path>
+                            </svg>
+                        </div>
+                        <div class="bs-route-point bs-route-point-right">
+                            <span class="bs-route-code">{selectedOffer.returnDestination}</span>
+                            <span class="bs-label">To</span>
+                        </div>
+                    </div>
+                    <p class="bs-airline">{selectedOffer.returnAirline} · Return</p>
+                </template>
+            </div>
+
+            <div class="bs-ticket-perf" aria-hidden="true"></div>
+
+            <div class="bs-ticket-stub">
+                <div class="bs-stub-item">
+                    <span class="bs-label">PNR</span>
+                    <span class="bs-stub-value bs-pnr-value">{pnr}</span>
+                </div>
+                <div class="bs-stub-item">
+                    <span class="bs-label">Status</span>
+                    <span class="bs-stub-value bs-status-pill">{booking.Booking_Status__c}</span>
+                </div>
+                <div class="bs-stub-item">
+                    <span class="bs-label">Total amount</span>
+                    <span class="bs-stub-value bs-total-value">{booking.Total_Amount__c}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bs-actions slds-m-top_large">
+            <lightning-button
+                variant="brand"
+                class="bs-btn-again"
+                label="Search Another Flight"
+                icon-name="utility:search"
+                onclick={handleSearchAgain}>
+            </lightning-button>
+            <lightning-button
+                variant="neutral"
+                class="bs-btn-view"
+                label="View Booking"
+                icon-name="utility:preview"
+                disabled={hasNoBooking}
+                onclick={handleViewBooking}>
+            </lightning-button>
+            <lightning-button
+                variant="neutral"
+                class="bs-btn-dashboard"
+                label="Go to Dashboard"
+                icon-name="utility:home"
+                onclick={handleGoToDashboard}>
+            </lightning-button>
+        </div>
+    </div>
+</template>

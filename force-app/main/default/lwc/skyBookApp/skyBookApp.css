@@ -1,0 +1,589 @@
+/* ==========================================================================
+   SkyBook Pro — "Aurora Night" Premium Dark Travel Theme (App Shell)
+   ========================================================================== */
+
+:host {
+    --sb-primary: #4F46E5;
+    --sb-primary-dark: #3730A3;
+    --sb-primary-light: #818CF8;
+    --sb-violet: #7C3AED;
+    --sb-cyan: #06B6D4;
+    --sb-accent: #FB923C;
+    --sb-gold: #F59E0B;
+    --sb-success: #10B981;
+    --sb-danger: #EF4444;
+    --sb-gradient-brand: linear-gradient(120deg, #2E2A8F 0%, #4C1D8F 50%, #075A73 100%);
+    --sb-gradient-warm: linear-gradient(120deg, #FB923C 0%, #F59E0B 100%);
+    --sb-gradient-text: linear-gradient(90deg, #A5B4FC 0%, #C4B5FD 45%, #67E8F9 100%);
+
+    --sb-bg-base: #030307;
+    --sb-bg-elevated: #08081a;
+    --sb-surface: rgba(255,255,255,0.035);
+    --sb-surface-strong: rgba(255,255,255,0.06);
+    --sb-surface-tint: rgba(129, 140, 248, 0.08);
+    --sb-surface-alt: rgba(124, 58, 237, 0.10);
+    --sb-border: rgba(255, 255, 255, 0.10);
+    --sb-border-strong: rgba(255, 255, 255, 0.18);
+    --sb-text-strong: #F5F5FF;
+    --sb-text-muted: #A6A8D4;
+
+    --sb-radius-lg: 1.75rem;
+    --sb-radius-md: 1.15rem;
+    --sb-radius-sm: 0.7rem;
+    --sb-shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.45);
+    --sb-shadow-lift: 0 24px 70px rgba(79, 70, 229, 0.35);
+    --sb-shadow-glow: 0 0 0 1px rgba(255,255,255,0.05), 0 20px 60px rgba(124, 58, 237, 0.28);
+
+    --sb-font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+    --sb-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+    display: block;
+    font-family: var(--sb-font);
+    color: var(--sb-text-strong);
+    -webkit-font-smoothing: antialiased;
+    color-scheme: dark;
+}
+
+/* ---------- Full page canvas ---------- */
+.skybook-fullscreen {
+    min-height: 100vh;
+    padding: 2.5rem 2rem 5rem;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(1200px 700px at 10% -10%, rgba(99, 102, 241, 0.15), transparent 60%),
+        radial-gradient(1000px 600px at 100% 0%, rgba(6, 182, 212, 0.11), transparent 55%),
+        radial-gradient(900px 700px at 50% 120%, rgba(251, 146, 60, 0.06), transparent 55%),
+        radial-gradient(600px 500px at 80% 60%, rgba(124, 58, 237, 0.09), transparent 60%),
+        linear-gradient(180deg, #020205 0%, #030308 45%, #010103 100%);
+    background-attachment: fixed;
+}
+
+/* animated aurora sheen */
+.skybook-fullscreen::before {
+    content: '';
+    position: absolute;
+    inset: -20%;
+    background: conic-gradient(from 180deg at 50% 50%,
+        rgba(99, 102, 241, 0.10),
+        rgba(6, 182, 212, 0.08),
+        rgba(124, 58, 237, 0.10),
+        rgba(251, 146, 60, 0.06),
+        rgba(99, 102, 241, 0.10));
+    filter: blur(60px);
+    animation: sbAuroraSpin 30s linear infinite;
+    pointer-events: none;
+    opacity: 0.55;
+    z-index: 0;
+}
+
+.skybook-fullscreen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(1.5px 1.5px at 20% 30%, rgba(255,255,255,0.5) 50%, transparent 51%),
+        radial-gradient(1.5px 1.5px at 75% 15%, rgba(255,255,255,0.35) 50%, transparent 51%),
+        radial-gradient(2px 2px at 60% 70%, rgba(129,140,248,0.6) 50%, transparent 51%),
+        radial-gradient(1.5px 1.5px at 40% 85%, rgba(103,232,249,0.5) 50%, transparent 51%),
+        radial-gradient(1.5px 1.5px at 90% 60%, rgba(255,255,255,0.4) 50%, transparent 51%);
+    background-repeat: no-repeat;
+    animation: sbTwinkle 6s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes sbAuroraSpin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes sbTwinkle {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+.skybook-wrapper {
+    max-width: 1360px;
+    margin: auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* ---------- Floating decorative orbs ---------- */
+.skybook-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(50px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.55;
+    animation: sbOrbFloat 14s ease-in-out infinite;
+}
+
+.skybook-orb-1 {
+    width: 320px;
+    height: 320px;
+    top: -80px;
+    left: -60px;
+    background: radial-gradient(circle, rgba(99,102,241,0.45), transparent 70%);
+    animation-delay: 0s;
+}
+
+.skybook-orb-2 {
+    width: 260px;
+    height: 260px;
+    top: 30%;
+    right: -80px;
+    background: radial-gradient(circle, rgba(6,182,212,0.35), transparent 70%);
+    animation-delay: 3s;
+}
+
+.skybook-orb-3 {
+    width: 300px;
+    height: 300px;
+    bottom: -60px;
+    left: 40%;
+    background: radial-gradient(circle, rgba(124,58,237,0.3), transparent 70%);
+    animation-delay: 6s;
+}
+
+@keyframes sbOrbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(20px, -30px) scale(1.08); }
+}
+
+/* ---------- Footer ---------- */
+.skybook-footer {
+    text-align: center;
+    margin-top: 3rem;
+    color: var(--sb-text-muted);
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+    position: relative;
+    z-index: 1;
+}
+
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+
+.skybook-hero {
+    background: var(--sb-gradient-brand);
+    color: #FFFFFF;
+    border-radius: var(--sb-radius-lg);
+    box-shadow: var(--sb-shadow-lift);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    border: 1px solid rgba(255,255,255,0.12);
+    animation: sbFadeUp .6s cubic-bezier(.22,1,.36,1);
+}
+
+.skybook-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,0.18) 0, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(255,255,255,0.14) 0, transparent 45%);
+    z-index: -1;
+}
+
+.skybook-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px);
+    background-size: 34px 34px;
+    mask-image: radial-gradient(ellipse at 70% 30%, black 0%, transparent 70%);
+    z-index: -1;
+}
+
+.skybook-eyebrow {
+    letter-spacing: 3px;
+    font-weight: 700;
+    opacity: 0.9;
+    text-transform: uppercase;
+    font-family: var(--sb-font-display);
+}
+
+.skybook-title {
+    font-family: var(--sb-font-display);
+    font-size: clamp(2.2rem, 4.2vw, 3.2rem);
+    font-weight: 800;
+    margin-top: .25rem;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.25);
+}
+
+.skybook-subtitle {
+    font-size: 1.05rem;
+    opacity: 0.92;
+    max-width: 34rem;
+}
+
+/* ---------- Plane badge ---------- */
+.skybook-plane-badge {
+    width: 76px;
+    height: 76px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,.14);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,.35);
+    animation: sbFloatBadge 4.5s ease-in-out infinite;
+    box-shadow: 0 12px 34px rgba(0,0,0,0.35), 0 0 40px rgba(103,232,249,0.25);
+}
+
+.skybook-plane-svg {
+    width: 38px;
+    height: 38px;
+    color: white;
+    transform: rotate(35deg);
+}
+
+.skybook-plane-inline {
+    width: 22px;
+    height: 22px;
+    color: var(--sb-primary-light);
+}
+
+@keyframes sbFloatBadge {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(4deg); }
+}
+
+@keyframes sbFloat {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(6px, -14px); }
+}
+
+/* ==========================================================================
+   Step progress path
+   ========================================================================== */
+
+.skybook-progress-card {
+    background: var(--sb-surface);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--sb-radius-md);
+    border: 1px solid var(--sb-border);
+    box-shadow: var(--sb-shadow-soft);
+    padding: 1.25rem 1.5rem;
+    animation: sbFadeUp .6s .05s both cubic-bezier(.22,1,.36,1);
+}
+
+.skybook-progress-card lightning-progress-indicator {
+    --slds-c-path-color-background-active: var(--sb-primary-light);
+    --slds-c-path-color-background-current: var(--sb-primary);
+    --slds-c-path-color-border-active: var(--sb-primary-light);
+    --slds-c-path-color-border-current: var(--sb-primary);
+}
+
+.skybook-progress-card .slds-path__link {
+    background: var(--sb-surface-strong);
+    color: var(--sb-text-strong);
+    transition: all .2s ease;
+}
+
+.skybook-progress-card .slds-path__title,
+.skybook-progress-card .slds-path__stage {
+    color: var(--sb-text-muted);
+}
+
+.skybook-progress-card .slds-is-current .slds-path__link,
+.skybook-progress-card .slds-is-active .slds-path__link {
+    background: var(--sb-gradient-brand) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45);
+}
+
+.skybook-progress-card .slds-is-current .slds-path__stage,
+.skybook-progress-card .slds-is-active .slds-path__stage {
+    color: #FFFFFF !important;
+}
+
+.skybook-progress-card .slds-path__item::before,
+.skybook-progress-card .slds-path__item::after {
+    border-color: var(--sb-border);
+}
+
+/* ==========================================================================
+   Cards (steps)
+   ========================================================================== */
+
+.skybook-card {
+    border-radius: var(--sb-radius-lg) !important;
+    overflow: hidden;
+    box-shadow: var(--sb-shadow-glow);
+    border: 1px solid var(--sb-border);
+    background: linear-gradient(180deg, rgba(12,12,26,0.94) 0%, rgba(6,6,16,0.96) 100%) !important;
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+}
+
+.skybook-card-search,
+.skybook-card-flight,
+.skybook-card-passenger,
+.skybook-card-confirm,
+.skybook-card-success {
+    animation: sbFadeUp .55s cubic-bezier(.22,1,.36,1);
+}
+
+.skybook-card .slds-card__header {
+    background: linear-gradient(180deg, rgba(99,102,241,0.12), transparent);
+    border-bottom: 1px solid var(--sb-border);
+}
+
+.skybook-card .slds-card__header-title,
+.skybook-card .slds-card__header a,
+.skybook-card .slds-card__header span {
+    color: var(--sb-text-strong) !important;
+    font-family: var(--sb-font-display);
+    font-weight: 700;
+}
+
+.skybook-card lightning-icon {
+    --sds-c-icon-color-foreground-default: var(--sb-primary-light);
+    --slds-c-icon-color-foreground-default: var(--sb-primary-light);
+}
+
+/* ==========================================================================
+   Flight summary banner
+   ========================================================================== */
+
+.skybook-summary-banner {
+    position: relative;
+    border-radius: var(--sb-radius-md);
+    background: var(--sb-gradient-brand);
+    color: white;
+    overflow: hidden;
+    box-shadow: var(--sb-shadow-lift);
+    border: 1px solid rgba(255,255,255,0.12);
+}
+
+.skybook-plane-watermark {
+    position: absolute;
+    right: -24px;
+    top: -24px;
+    width: 160px;
+    height: 160px;
+    opacity: .14;
+    transform: rotate(35deg);
+}
+
+.skybook-route {
+    font-family: var(--sb-font-display);
+    font-size: 1.9rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+.skybook-route-arrow {
+    color: #67E8F9;
+    padding: 0 .2rem;
+}
+
+.skybook-price {
+    font-family: var(--sb-font-display);
+    font-size: 2.1rem;
+    font-weight: 800;
+}
+
+/* ==========================================================================
+   Detail tiles
+   ========================================================================== */
+
+.skybook-detail-tile {
+    border-radius: var(--sb-radius-sm);
+    background: var(--sb-surface);
+    border: 1px solid var(--sb-border);
+    transition: transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s ease, border-color .25s ease, background .25s ease;
+}
+
+.skybook-detail-tile p {
+    color: var(--sb-text-strong);
+}
+
+.skybook-detail-tile:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 34px rgba(79, 70, 229, 0.28);
+    border-color: var(--sb-primary-light);
+    background: var(--sb-surface-strong);
+}
+
+/* ==========================================================================
+   Inline heading
+   ========================================================================== */
+
+.skybook-inline-heading {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    color: var(--sb-primary-light) !important;
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   Brand button
+   ========================================================================== */
+
+.skybook-btn-brand {
+    --slds-c-button-brand-color-background: var(--sb-primary);
+    --slds-c-button-brand-color-border: var(--sb-primary);
+    --slds-c-button-brand-color-background-hover: var(--sb-primary-dark);
+    --slds-c-button-radius-border: 999px;
+    transition: transform .18s ease, box-shadow .18s ease;
+    box-shadow: 0 10px 28px rgba(79, 70, 229, 0.4);
+}
+
+.skybook-btn-brand:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 34px rgba(79, 70, 229, 0.55);
+}
+
+/* ==========================================================================
+   Loading
+   ========================================================================== */
+
+.skybook-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: sbFadeUp .3s ease;
+}
+
+.skybook-loading p {
+    color: var(--sb-text-muted);
+}
+
+/* ==========================================================================
+   Global element polish (dark)
+   ========================================================================== */
+
+lightning-card {
+    border-radius: var(--sb-radius-lg);
+    --slds-c-card-color-background: transparent;
+}
+
+.slds-card {
+    background: transparent;
+    color: var(--sb-text-strong);
+}
+
+.slds-text-body_small,
+.slds-text-color_weak {
+    color: var(--sb-text-muted) !important;
+}
+
+lightning-input,
+lightning-combobox,
+lightning-textarea,
+lightning-radio-group {
+    --slds-c-input-radius-border: 0.75rem;
+    --slds-c-input-color-border-focus: var(--sb-primary-light);
+    --slds-c-input-shadow-focus: 0 0 0 3px rgba(129, 140, 248, 0.25);
+    --slds-c-input-color-background: rgba(255,255,255,0.032);
+    --slds-c-input-text-color: var(--sb-text-strong);
+    --slds-c-input-color-border: var(--sb-border-strong);
+    --sds-c-input-label-color: var(--sb-text-muted);
+    --slds-c-input-label-color: var(--sb-text-muted);
+    color-scheme: dark;
+}
+
+lightning-button button,
+button.slds-button {
+    border-radius: 999px !important;
+    font-weight: 600;
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+lightning-button:not(.skybook-btn-brand) button {
+    --slds-c-button-color-background: rgba(255,255,255,0.05);
+    --slds-c-button-text-color: var(--sb-text-strong);
+    --slds-c-button-color-border: var(--sb-border-strong);
+}
+
+lightning-button:not(.skybook-btn-brand) button:hover {
+    transform: translateY(-2px);
+    --slds-c-button-color-background: rgba(255,255,255,0.1);
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    background: var(--sb-gradient-brand);
+    color: white;
+}
+
+th, td {
+    padding: 12px;
+}
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+
+@keyframes sbFadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media screen and (max-width: 768px) {
+    .skybook-fullscreen {
+        padding: 1.25rem 1rem 3rem;
+    }
+
+    .skybook-title {
+        font-size: 1.8rem;
+    }
+
+    .skybook-route {
+        font-size: 1.3rem;
+    }
+
+    .skybook-price {
+        font-size: 1.5rem;
+    }
+
+    .skybook-plane-badge {
+        margin-top: 1rem;
+        width: 60px;
+        height: 60px;
+    }
+
+    .skybook-plane-svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .slds-text-align_right {
+        text-align: left;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skybook-fullscreen::before,
+    .skybook-fullscreen::after,
+    .skybook-plane-badge,
+    .skybook-card-search,
+    .skybook-card-flight,
+    .skybook-card-passenger,
+    .skybook-card-confirm,
+    .skybook-card-success,
+    .skybook-hero,
+    .skybook-progress-card {
+        animation: none !important;
+    }
+}

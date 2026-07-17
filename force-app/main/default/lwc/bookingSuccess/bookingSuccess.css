@@ -1,0 +1,338 @@
+/* ==========================================================================
+   Booking Success — celebratory dark "boarding pass" theme
+   ========================================================================== */
+
+:host {
+    --sb-primary: #4F46E5;
+    --sb-primary-light: #818CF8;
+    --sb-violet: #7C3AED;
+    --sb-cyan: #06B6D4;
+    --sb-accent: #FB923C;
+    --sb-gold: #F59E0B;
+    --sb-success: #10B981;
+    --sb-gradient-brand: linear-gradient(120deg, #2E2A8F 0%, #4C1D8F 50%, #075A73 100%);
+    --sb-surface: rgba(255,255,255,0.035);
+    --sb-border: rgba(255,255,255,0.10);
+    --sb-text-strong: #F5F5FF;
+    --sb-text-muted: #A6A8D4;
+    --sb-stub-bg: #14142E;
+    display: block;
+}
+
+.bs-container {
+    position: relative;
+    text-align: center;
+    padding: 1rem 0.5rem 0.5rem;
+    overflow: hidden;
+}
+
+/* ---------- Confetti dots ---------- */
+.bs-confetti {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.bs-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    opacity: 0.9;
+    animation: bsFall 2.6s ease-in-out infinite;
+    box-shadow: 0 0 10px currentColor;
+}
+
+.bs-dot-1 { left: 8%; top: -10px; background: var(--sb-primary-light); color: var(--sb-primary-light); animation-delay: 0s; }
+.bs-dot-2 { left: 22%; top: -10px; background: var(--sb-cyan); color: var(--sb-cyan); animation-delay: .3s; border-radius: 50%; }
+.bs-dot-3 { left: 45%; top: -10px; background: var(--sb-gold); color: var(--sb-gold); animation-delay: .6s; }
+.bs-dot-4 { left: 63%; top: -10px; background: var(--sb-accent); color: var(--sb-accent); animation-delay: .15s; border-radius: 50%; }
+.bs-dot-5 { left: 80%; top: -10px; background: var(--sb-violet); color: var(--sb-violet); animation-delay: .45s; }
+.bs-dot-6 { left: 92%; top: -10px; background: var(--sb-success); color: var(--sb-success); animation-delay: .75s; border-radius: 50%; }
+
+@keyframes bsFall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0.95; }
+    100% { transform: translateY(220px) rotate(220deg); opacity: 0; }
+}
+
+/* ---------- Check badge ---------- */
+.bs-check-badge {
+    width: 4.5rem;
+    height: 4.5rem;
+    margin: 0 auto;
+    border-radius: 999px;
+    background: var(--sb-gradient-brand);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 16px 40px rgba(79, 70, 229, 0.5), 0 0 40px rgba(16, 185, 129, 0.25);
+    animation: bsPop .5s cubic-bezier(.34,1.56,.64,1);
+}
+
+.bs-check-badge svg {
+    width: 2.2rem;
+    height: 2.2rem;
+}
+
+@keyframes bsPop {
+    0% { transform: scale(0); opacity: 0; }
+    70% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+.bs-title {
+    margin-top: 1.1rem;
+    font-family: 'Unbounded', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--sb-text-strong);
+    letter-spacing: -0.01em;
+    background: linear-gradient(90deg, #F5F5FF 30%, #A5B4FC 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.bs-subtitle {
+    color: var(--sb-text-muted);
+    margin-top: 0.3rem;
+}
+
+/* ---------- Ticket ---------- */
+.bs-ticket {
+    position: relative;
+    max-width: 30rem;
+    margin: 0 auto;
+    text-align: left;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    box-shadow: 0 26px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
+    animation: bsRise .5s ease .1s both;
+}
+
+@keyframes bsRise {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.bs-ticket-main {
+    background: var(--sb-gradient-brand);
+    color: #FFFFFF;
+    padding: 1.5rem 1.5rem 1.75rem;
+    position: relative;
+}
+
+.bs-ticket-row.bs-ticket-ref {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.1rem;
+}
+
+.bs-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    opacity: 0.85;
+    font-weight: 700;
+    display: block;
+}
+
+.bs-ref-value {
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+.bs-ticket-route {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.bs-ticket-route-return {
+    padding-top: 0.85rem;
+    border-top: 1px dashed rgba(255, 255, 255, 0.18);
+}
+
+.bs-route-point {
+    display: flex;
+    flex-direction: column;
+}
+
+.bs-route-point-right {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.bs-route-code {
+    font-family: 'Unbounded', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 1.9rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+.bs-route-line {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.bs-route-line::before,
+.bs-route-line::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.4);
+}
+
+.bs-route-line svg {
+    width: 1.15rem;
+    height: 1.15rem;
+    margin: 0 0.4rem;
+    transform: rotate(35deg);
+    flex-shrink: 0;
+    animation: bsPlaneDrift 2.2s ease-in-out infinite;
+}
+
+@keyframes bsPlaneDrift {
+    0%, 100% { transform: rotate(35deg) translateX(0); }
+    50% { transform: rotate(35deg) translateX(4px); }
+}
+
+.bs-airline {
+    margin-top: 1rem;
+    font-weight: 600;
+    opacity: 0.95;
+}
+
+/* ---------- Perforation ---------- */
+.bs-ticket-perf {
+    height: 0;
+    border-top: 2px dashed rgba(255,255,255,0.16);
+    position: relative;
+    background: var(--sb-stub-bg);
+}
+
+.bs-ticket-perf::before,
+.bs-ticket-perf::after {
+    content: '';
+    position: absolute;
+    top: -12px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #030307;
+}
+
+.bs-ticket-perf::before { left: -12px; }
+.bs-ticket-perf::after { right: -12px; }
+
+/* ---------- Stub ---------- */
+.bs-ticket-stub {
+    background: var(--sb-stub-bg);
+    padding: 1.25rem 1.5rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    border: 1px solid var(--sb-border);
+    border-top: none;
+}
+
+.bs-stub-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.bs-stub-item .bs-label {
+    color: var(--sb-text-muted);
+}
+
+.bs-stub-value {
+    font-weight: 700;
+    color: var(--sb-text-strong);
+    font-size: 1.05rem;
+}
+
+.bs-status-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(16, 185, 129, 0.16);
+    color: #34D399;
+    font-size: 0.85rem;
+    width: fit-content;
+}
+
+.bs-total-value {
+    background: linear-gradient(120deg, #818CF8 0%, #67E8F9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.bs-pnr-value {
+    font-family: 'Unbounded', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    letter-spacing: 0.04em;
+}
+
+/* ---------- Actions ---------- */
+.bs-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.bs-btn-again {
+    --slds-c-button-brand-color-background: var(--sb-primary);
+    --slds-c-button-brand-color-background-hover: #3730A3;
+    --slds-c-button-brand-color-border: var(--sb-primary);
+    --slds-c-button-radius-border: 999px;
+    transition: transform .18s ease, box-shadow .18s ease;
+    box-shadow: 0 12px 30px rgba(79, 70, 229, 0.45);
+}
+
+.bs-btn-again:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 36px rgba(79, 70, 229, 0.6);
+}
+
+.bs-btn-view,
+.bs-btn-dashboard {
+    --slds-c-button-radius-border: 999px;
+    --slds-c-button-color-border: var(--sb-border);
+    --slds-c-button-color-background: rgba(255,255,255,0.04);
+    --slds-c-button-text-color: var(--sb-text-strong);
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.bs-btn-view:hover,
+.bs-btn-dashboard:hover {
+    transform: translateY(-2px);
+    --slds-c-button-color-background: rgba(255,255,255,0.1);
+}
+
+@media (max-width: 480px) {
+    .bs-route-code {
+        font-size: 1.4rem;
+    }
+
+    .bs-ticket-stub {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .bs-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .bs-actions lightning-button {
+        width: 100%;
+    }
+}

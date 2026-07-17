@@ -1,0 +1,198 @@
+<template>
+    <div class="skybook-fullscreen">
+        <div class="skybook-orb skybook-orb-1" aria-hidden="true"></div>
+        <div class="skybook-orb skybook-orb-2" aria-hidden="true"></div>
+        <div class="skybook-orb skybook-orb-3" aria-hidden="true"></div>
+        <div class="skybook-wrapper">
+
+        <!-- HERO / BRAND HEADER -->
+        <div class="skybook-hero slds-p-around_large slds-m-bottom_medium">
+            <lightning-layout vertical-align="center" multiple-rows="true">
+                <lightning-layout-item size="12" medium-device-size="8">
+                    <p class="skybook-eyebrow slds-text-body_small">✦ Premium Flight Booking</p>
+                    <h1 class="skybook-title slds-text-heading_large">SkyBook Pro</h1>
+                    <p class="skybook-subtitle slds-text-body_regular slds-m-top_x-small">
+                        Search, compare and book flights across the globe — fast, effortless, unforgettable.
+                    </p>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" medium-device-size="4" class="slds-text-align_right">
+                    <span class="skybook-plane-badge">
+                        <svg class="skybook-plane-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path fill="currentColor" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"></path>
+                        </svg>
+                    </span>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+
+        <!-- STEP PROGRESS PATH -->
+        <div class="skybook-progress-card slds-box slds-m-bottom_medium">
+            <lightning-progress-indicator current-step={currentStep} type="path" variant="base">
+                <lightning-progress-step label="Search" value="search"></lightning-progress-step>
+                <lightning-progress-step label="Flight" value="selectedFlight"></lightning-progress-step>
+                <lightning-progress-step label="Passengers" value="passenger"></lightning-progress-step>
+                <lightning-progress-step label="Confirm" value="confirmation"></lightning-progress-step>
+                <lightning-progress-step label="Booked" value="success"></lightning-progress-step>
+            </lightning-progress-indicator>
+        </div>
+
+        <!-- STEP 1: SEARCH -->
+        <template if:true={isSearchStep}>
+            <lightning-card class="skybook-card skybook-card-search" title="Find your flight" icon-name="utility:search">
+                <div class="slds-p-around_medium">
+                    <c-flight-search-form
+                        onflightsearch={handleFlightSearch}>
+                    </c-flight-search-form>
+
+                    <template if:true={isLoading}>
+                        <div class="slds-m-top_large slds-align_absolute-center skybook-loading">
+                            <lightning-spinner
+                                alternative-text="Searching flights"
+                                size="medium"
+                                variant="brand">
+                            </lightning-spinner>
+                            <p class="slds-m-top_small slds-text-body_small slds-text-color_weak">
+                                Searching the skies for the best fares…
+                            </p>
+                        </div>
+                    </template>
+
+                    <template if:true={hasResults}>
+                        <div class="slds-m-top_large">
+                            <lightning-layout horizontal-align="spread" vertical-align="center" class="slds-m-bottom_small">
+                                <lightning-layout-item>
+                                    <h2 class="slds-text-heading_small slds-text-color_weak skybook-inline-heading">
+                                        <svg class="skybook-plane-inline" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                            <path fill="currentColor" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"></path>
+                                        </svg>
+                                        Available flights
+                                    </h2>
+                                </lightning-layout-item>
+                            </lightning-layout>
+                            <c-flight-results-list
+                                flight-offers={flightOffers}
+                                onofferselected={handleOfferSelected}>
+                            </c-flight-results-list>
+                        </div>
+                    </template>
+
+                    <template if:true={hasSearchedWithoutResults}>
+                        <div class="slds-notify slds-notify_alert slds-alert_warning slds-m-top_medium" role="alert">
+                            <span class="slds-assistive-text">Warning</span>
+                            <lightning-icon icon-name="utility:warning" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                            No flights found for the selected route/date. Try adjusting your search.
+                        </div>
+                    </template>
+                </div>
+            </lightning-card>
+        </template>
+
+        <!-- STEP 2: SELECTED FLIGHT SUMMARY -->
+        <template if:true={isSelectedFlightStep}>
+            <lightning-card class="skybook-card skybook-card-flight" title="Selected flight" icon-name="utility:trip">
+                <div class="slds-p-around_medium">
+                    <div class="skybook-summary-banner slds-p-around_medium slds-m-bottom_medium">
+                        <svg class="skybook-plane-watermark" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path fill="currentColor" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"></path>
+                        </svg>
+                        <lightning-layout horizontal-align="spread" vertical-align="center" multiple-rows="true">
+                            <lightning-layout-item size="12" medium-device-size="7">
+                                <p class="slds-text-heading_small slds-m-bottom_xx-small">{selectedOffer.airline}</p>
+                                <p class="slds-text-heading_medium skybook-route">
+                                    {selectedOffer.origin} <span class="skybook-route-arrow">→</span> {selectedOffer.destination}
+                                </p>
+                            </lightning-layout-item>
+                            <lightning-layout-item size="12" medium-device-size="5" class="slds-text-align_right">
+                                <p class="slds-text-body_small slds-text-color_weak">Total price</p>
+                                <p class="skybook-price">{selectedOffer.currency_x} {selectedOffer.price}</p>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </div>
+
+                    <lightning-layout multiple-rows="true" class="slds-m-bottom_medium">
+                        <lightning-layout-item size="12" small-device-size="6" class="slds-p-around_x-small">
+                            <div class="skybook-detail-tile slds-p-around_medium">
+                                <p class="slds-text-body_small slds-text-color_weak">Flight number</p>
+                                <p class="slds-text-heading_small">{selectedOffer.flightNumber}</p>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="12" small-device-size="6" class="slds-p-around_x-small">
+                            <div class="skybook-detail-tile slds-p-around_medium">
+                                <p class="slds-text-body_small slds-text-color_weak">Cabin class</p>
+                                <p class="slds-text-heading_small">{selectedOffer.cabinClass}</p>
+                            </div>
+                        </lightning-layout-item>
+                    </lightning-layout>
+
+                    <lightning-layout horizontal-align="spread">
+                        <lightning-layout-item>
+                            <lightning-button
+                                label="Back to search"
+                                icon-name="utility:back"
+                                onclick={goBackToSearch}>
+                            </lightning-button>
+                        </lightning-layout-item>
+                        <lightning-layout-item>
+                            <lightning-button
+                                variant="brand"
+                                class="skybook-btn-brand"
+                                label="Continue to passenger details"
+                                icon-name="utility:forward"
+                                icon-position="right"
+                                onclick={goToPassengerStep}>
+                            </lightning-button>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </div>
+            </lightning-card>
+        </template>
+
+        <!-- STEP 3: PASSENGER DETAILS -->
+        <template if:true={isPassengerStep}>
+            <lightning-card class="skybook-card skybook-card-passenger" title="Passenger details" icon-name="utility:people">
+                <div class="slds-p-around_medium">
+                    <c-passenger-details-form
+                        passenger-count={passengerCount}
+                        onpassengersready={handlePassengersReady}
+                        onback={goBackToSelectedFlight}>
+                    </c-passenger-details-form>
+                </div>
+            </lightning-card>
+        </template>
+
+        <!-- STEP 4: BOOKING CONFIRMATION -->
+        <template if:true={isConfirmationStep}>
+            <lightning-card class="skybook-card skybook-card-confirm" title="Confirm your booking" icon-name="utility:check">
+                <div class="slds-p-around_medium">
+                    <c-booking-confirmation
+                        selected-offer={selectedOffer}
+                        passengers={passengers}
+                        passenger-count={passengerCount}
+                        contact-id={contactId}
+                        onbookingcreated={handleBookingCreated}
+                        onback={goBackToPassengerStep}>
+                    </c-booking-confirmation>
+                </div>
+            </lightning-card>
+        </template>
+
+        <!-- STEP 5: BOOKING SUCCESS -->
+        <template if:true={isSuccessStep}>
+            <lightning-card class="skybook-card skybook-card-success" title="Booking confirmed" icon-name="utility:success">
+                <div class="slds-p-around_medium">
+                    <c-booking-success
+                        booking={createdBooking}
+                        selected-offer={selectedOffer}
+                        onsearchagain={handleSearchAgain}>
+                    </c-booking-success>
+                </div>
+            </lightning-card>
+        </template>
+
+        <footer class="skybook-footer">
+            <p>✦ SkyBook Pro — crafted for effortless, unforgettable journeys.</p>
+        </footer>
+
+    </div>
+    </div>
+</template>

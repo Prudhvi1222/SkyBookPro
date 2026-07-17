@@ -1,0 +1,157 @@
+<template>
+    <div class="bc-container">
+
+        <div class="bc-header slds-m-bottom_medium">
+            <svg class="bc-header-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path fill="currentColor" d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+            </svg>
+            <div>
+                <h2 class="bc-title slds-text-heading_medium">Booking confirmation</h2>
+                <p class="bc-subtitle slds-text-body_small">Review everything before you confirm</p>
+            </div>
+        </div>
+
+        <div class="bc-summary-card slds-m-bottom_medium">
+            <svg class="bc-summary-watermark" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path fill="currentColor" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"></path>
+            </svg>
+
+            <h3 class="bc-section-title slds-text-heading_small slds-m-bottom_small">{outboundSummaryTitle}</h3>
+
+            <lightning-layout multiple-rows="true">
+                <lightning-layout-item size="12" medium-device-size="4" padding="around-x-small">
+                    <div class="bc-tile">
+                        <p class="bc-tile-label">Airline</p>
+                        <p class="bc-tile-value">{selectedOffer.airline}</p>
+                    </div>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="12" medium-device-size="4" padding="around-x-small">
+                    <div class="bc-tile">
+                        <p class="bc-tile-label">Flight</p>
+                        <p class="bc-tile-value">{selectedOffer.flightNumber}</p>
+                    </div>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="12" medium-device-size="4" padding="around-x-small">
+                    <div class="bc-tile">
+                        <p class="bc-tile-label">Route</p>
+                        <p class="bc-tile-value">{selectedOffer.origin} → {selectedOffer.destination}</p>
+                    </div>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="12" medium-device-size="4" padding="around-x-small">
+                    <div class="bc-tile">
+                        <p class="bc-tile-label">Cabin</p>
+                        <p class="bc-tile-value">{selectedOffer.cabinClass}</p>
+                    </div>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="12" medium-device-size="4" padding="around-x-small">
+                    <div class="bc-tile">
+                        <p class="bc-tile-label">Price per seat</p>
+                        <p class="bc-tile-value">{selectedOffer.currency_x} {selectedOffer.price}</p>
+                    </div>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="12" medium-device-size="4" padding="around-x-small">
+                    <div class="bc-tile">
+                        <p class="bc-tile-label">Passengers</p>
+                        <p class="bc-tile-value">{passengerCount}</p>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+
+            <div class="bc-total-row slds-m-top_small">
+                <span class="bc-total-label">Total amount</span>
+                <span class="bc-total-value">{selectedOffer.currency_x} {totalAmount}</span>
+            </div>
+        </div>
+
+        <template if:true={isRoundTrip}>
+            <div class="bc-summary-card slds-m-bottom_medium">
+                <svg class="bc-summary-watermark" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path fill="currentColor" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"></path>
+                </svg>
+
+                <h3 class="bc-section-title slds-text-heading_small slds-m-bottom_small">Return flight summary</h3>
+
+                <lightning-layout multiple-rows="true">
+                    <lightning-layout-item size="12" medium-device-size="4" padding="around-x-small">
+                        <div class="bc-tile">
+                            <p class="bc-tile-label">Airline</p>
+                            <p class="bc-tile-value">{selectedOffer.returnAirline}</p>
+                        </div>
+                    </lightning-layout-item>
+
+                    <lightning-layout-item size="12" medium-device-size="4" padding="around-x-small">
+                        <div class="bc-tile">
+                            <p class="bc-tile-label">Flight</p>
+                            <p class="bc-tile-value">{selectedOffer.returnFlightNumber}</p>
+                        </div>
+                    </lightning-layout-item>
+
+                    <lightning-layout-item size="12" medium-device-size="4" padding="around-x-small">
+                        <div class="bc-tile">
+                            <p class="bc-tile-label">Route</p>
+                            <p class="bc-tile-value">{selectedOffer.returnOrigin} → {selectedOffer.returnDestination}</p>
+                        </div>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+        </template>
+
+        <div class="bc-passenger-card slds-m-bottom_medium">
+            <h3 class="bc-section-title slds-text-heading_small slds-m-bottom_small">Passengers</h3>
+
+            <template for:each={passengers} for:item="passenger">
+                <div key={passenger.firstName} class="bc-passenger-row">
+                    <span class="bc-passenger-avatar">{passenger.firstName}</span>
+                    <span class="bc-passenger-name">
+                        {passenger.firstName} {passenger.lastName}
+                    </span>
+                    <lightning-badge class="bc-passenger-badge" label={passenger.passengerType}></lightning-badge>
+                </div>
+            </template>
+        </div>
+
+        <div class="bc-terms-box slds-m-bottom_medium">
+            <lightning-input
+                type="checkbox"
+                label="I confirm the booking details are correct"
+                checked={termsAccepted}
+                onchange={handleTermsChange}>
+            </lightning-input>
+        </div>
+
+        <template if:true={isSubmitting}>
+            <div class="slds-m-bottom_medium bc-loading">
+                <lightning-spinner
+                    alternative-text="Creating booking"
+                    size="medium"
+                    variant="brand">
+                </lightning-spinner>
+                <p class="slds-text-body_small bc-loading-text">Creating your booking…</p>
+            </div>
+        </template>
+
+        <div class="bc-actions">
+            <lightning-button
+                label="Back"
+                icon-name="utility:back"
+                onclick={handleBack}
+                disabled={isSubmitting}>
+            </lightning-button>
+
+            <lightning-button
+                class="bc-btn-confirm slds-m-left_small"
+                variant="brand"
+                label="Confirm booking"
+                icon-name="utility:check"
+                icon-position="right"
+                onclick={handleConfirmBooking}
+                disabled={disableConfirmButton}>
+            </lightning-button>
+        </div>
+    </div>
+</template>

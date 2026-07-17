@@ -1,0 +1,145 @@
+/* ==========================================================================
+   Refund Status Tracker — "Aurora Night" dark premium theme
+   ========================================================================== */
+
+:host {
+    --sb-primary: #4F46E5;
+    --sb-primary-light: #818CF8;
+    --sb-cyan: #06B6D4;
+    --sb-accent: #FB923C;
+    --sb-success: #10B981;
+    --sb-danger: #EF4444;
+    --sb-surface: rgba(255,255,255,0.035);
+    --sb-border: rgba(255,255,255,0.10);
+    --sb-text-strong: #F5F5FF;
+    --sb-text-muted: #A6A8D4;
+    color-scheme: dark;
+}
+
+.rst-card {
+    border-radius: 1.5rem !important;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.05), 0 24px 60px rgba(0,0,0,0.45) !important;
+    background: linear-gradient(180deg, rgba(12,12,26,0.94) 0%, rgba(6,6,16,0.96) 100%) !important;
+}
+
+.rst-card .slds-card__header-title,
+.rst-card .slds-card__header a {
+    color: var(--sb-text-strong) !important;
+    font-family: 'Manrope', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 700;
+}
+
+.rst-progress-wrap lightning-progress-indicator {
+    --slds-c-path-color-background-active: #818CF8;
+    --slds-c-path-color-background-current: var(--sb-primary);
+    --slds-c-path-color-border-active: #818CF8;
+    --slds-c-path-color-border-current: var(--sb-primary);
+}
+
+.rst-progress-wrap .slds-path__link {
+    background: rgba(255,255,255,0.05);
+    color: var(--sb-text-strong);
+}
+
+.rst-progress-wrap .slds-path__title,
+.rst-progress-wrap .slds-path__stage {
+    color: var(--sb-text-muted);
+}
+
+.rst-progress-wrap .slds-is-current .slds-path__link,
+.rst-progress-wrap .slds-is-active .slds-path__link {
+    background: linear-gradient(120deg, #4338CA, #0891B2) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 6px 18px rgba(79, 70, 229, 0.4);
+}
+
+.rst-progress-wrap .slds-is-current .slds-path__stage,
+.rst-progress-wrap .slds-is-active .slds-path__stage {
+    color: #FFFFFF !important;
+}
+
+/* ---------- Detail card ---------- */
+.rst-detail-card {
+    background: linear-gradient(120deg, rgba(79,70,229,0.10), rgba(6,182,212,0.08));
+    border: 1px solid var(--sb-border);
+    border-radius: 1.1rem;
+    padding: 1.25rem 1.5rem;
+    animation: rstRise .4s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+@keyframes rstRise {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.rst-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--sb-border);
+}
+
+.rst-item:last-child {
+    border-bottom: none;
+}
+
+.rst-label {
+    color: var(--sb-text-muted);
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.rst-value {
+    color: var(--sb-text-strong);
+    font-weight: 700;
+}
+
+.rst-amount {
+    background: linear-gradient(120deg, #818CF8, #67E8F9);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.rst-status-pill {
+    display: inline-flex;
+    padding: 0.15rem 0.65rem;
+    border-radius: 999px;
+    background: rgba(129, 140, 248, 0.16);
+    color: var(--sb-primary-light);
+    font-size: 0.85rem;
+}
+
+/* ---------- Empty / error states ---------- */
+.rst-empty-state {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(251, 146, 60, 0.08);
+    border: 1px solid var(--sb-border);
+    border-left: 4px solid var(--sb-accent);
+    border-radius: 0.85rem;
+    padding: 0.9rem 1.1rem;
+    color: var(--sb-text-strong);
+}
+
+.rst-error {
+    border-radius: 0.85rem;
+}
+
+/* ---------- Actions ---------- */
+.rst-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.rst-btn-close {
+    --slds-c-button-radius-border: 999px;
+    --slds-c-button-color-border: var(--sb-border);
+    --slds-c-button-color-background: rgba(255,255,255,0.04);
+    --slds-c-button-text-color: var(--sb-text-strong);
+}

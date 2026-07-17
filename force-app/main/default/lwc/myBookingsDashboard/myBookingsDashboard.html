@@ -1,0 +1,93 @@
+<template>
+    <div class="mbd-container">
+
+        <div class="mbd-hero">
+            <div>
+                <p class="mbd-eyebrow">SKYBOOK PRO</p>
+                <h1 class="mbd-title">My Bookings</h1>
+                <p class="mbd-subtitle">Track, manage, and review all your flight bookings</p>
+            </div>
+            <div class="mbd-hero-stats">
+                <div class="mbd-stat-chip">
+                    <span class="mbd-stat-value">{totalCount}</span>
+                    <span class="mbd-stat-label">Total</span>
+                </div>
+                <div class="mbd-stat-chip">
+                    <span class="mbd-stat-value">{upcomingCount}</span>
+                    <span class="mbd-stat-label">Upcoming</span>
+                </div>
+                <div class="mbd-stat-chip">
+                    <span class="mbd-stat-value">{cancelledCount}</span>
+                    <span class="mbd-stat-label">Cancelled</span>
+                </div>
+            </div>
+        </div>
+
+        <lightning-card class="my-bookings-card">
+            <div class="slds-p-around_medium">
+
+                <template if:true={isLoading}>
+                    <lightning-spinner
+                        alternative-text="Loading bookings"
+                        size="medium">
+                    </lightning-spinner>
+                </template>
+
+                <template if:true={hasBookings}>
+                    <div class="mbd-pill-tabs slds-m-bottom_medium">
+                        <div class={allTabClass} data-tab="All" onclick={handleTabChange}>All</div>
+                        <div class={upcomingTabClass} data-tab="Upcoming" onclick={handleTabChange}>Upcoming</div>
+                        <div class={pastTabClass} data-tab="Past" onclick={handleTabChange}>Past</div>
+                        <div class={cancelledTabClass} data-tab="Cancelled" onclick={handleTabChange}>Cancelled</div>
+                    </div>
+
+                    <lightning-datatable
+                        class="my-datatable"
+                        key-field="Id"
+                        data={filteredBookings}
+                        columns={columns}
+                        hide-checkbox-column
+                        onrowaction={handleRowAction}>
+                    </lightning-datatable>
+                </template>
+
+                <template if:true={showBookingDetail}>
+                    <div class="slds-m-top_large">
+                        <c-booking-detail-view
+                            booking-id={selectedBookingId}
+                            onclose={handleCloseBookingDetail}>
+                        </c-booking-detail-view>
+                    </div>
+                </template>
+
+                <template if:false={hasBookings}>
+                    <template if:false={isLoading}>
+                        <div class="empty-state slds-text-align_center slds-p-around_large">
+                            <lightning-icon icon-name="utility:trip" size="medium"></lightning-icon>
+                            <h3 class="slds-m-top_small">No bookings found</h3>
+                            <p>Search for a flight to make your first booking.</p>
+                        </div>
+                    </template>
+                </template>
+
+                <template if:true={showCancellationModal}>
+                    <c-cancellation-modal
+                        booking={selectedBooking}
+                        onclose={handleCloseCancellationModal}
+                        oncancelled={handleBookingCancelled}>
+                    </c-cancellation-modal>
+                </template>
+
+                <template if:true={showRefundTracker}>
+                    <div class="slds-m-top_large">
+                        <c-refund-status-tracker
+                            booking-id={selectedBookingId}
+                            onclose={handleCloseRefundTracker}>
+                        </c-refund-status-tracker>
+                    </div>
+                </template>
+
+            </div>
+        </lightning-card>
+    </div>
+</template>

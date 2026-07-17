@@ -1,0 +1,68 @@
+<template>
+    <div class="frl-container">
+
+        <div class="frl-filter-bar slds-m-bottom_medium">
+            <div class="frl-filter-header slds-m-bottom_small">
+                <svg class="frl-filter-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path fill="currentColor" d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"></path>
+                </svg>
+                <h3 class="frl-filter-title slds-text-heading_small">Filter &amp; sort</h3>
+            </div>
+
+            <div class="slds-grid slds-wrap slds-gutters">
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                    <lightning-combobox
+                        class="frl-input"
+                        label="Sort By"
+                        value={sortBy}
+                        options={sortOptions}
+                        onchange={handleSortChange}>
+                    </lightning-combobox>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                    <lightning-input
+                        class="frl-input"
+                        label="Filter Airline"
+                        value={airlineFilter}
+                        onchange={handleAirlineFilterChange}
+                        placeholder="Example: Emirates">
+                    </lightning-input>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-3">
+                    <lightning-input
+                        class="frl-input"
+                        type="number"
+                        label="Max Price"
+                        value={maxPrice}
+                        onchange={handleMaxPriceChange}>
+                    </lightning-input>
+                </div>
+            </div>
+        </div>
+
+        <template if:true={hasFilteredOffers}>
+            <p class="frl-result-count slds-m-bottom_small">
+                {filteredOffers.length} flights found
+            </p>
+            <template for:each={filteredOffers} for:item="offer">
+                <c-flight-result-card
+                    key={offer.offerId}
+                    offer={offer}
+                    onselectoffer={handleSelectOffer}>
+                </c-flight-result-card>
+            </template>
+        </template>
+
+        <template if:false={hasFilteredOffers}>
+            <div class="frl-empty-state">
+                <svg class="frl-empty-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path fill="currentColor" d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path>
+                </svg>
+                <span class="slds-assistive-text">Warning</span>
+                No flights match the current filters.
+            </div>
+        </template>
+    </div>
+</template>

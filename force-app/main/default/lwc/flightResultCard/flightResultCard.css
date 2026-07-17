@@ -1,0 +1,184 @@
+/* flightResultCard.css — SkyBook Pro "Aurora Night" dark premium theme */
+:host {
+    --sb-primary: #4F46E5;
+    --sb-primary-light: #818CF8;
+    --sb-gradient-brand: linear-gradient(120deg, #2E2A8F 0%, #4C1D8F 50%, #075A73 100%);
+
+    --sb-surface: rgba(255,255,255,0.035);
+    --sb-surface-strong: rgba(255,255,255,0.06);
+    --sb-border: rgba(255, 255, 255, 0.10);
+    --sb-border-strong: rgba(255, 255, 255, 0.18);
+    --sb-text-strong: #F5F5FF;
+    --sb-text-muted: #A6A8D4;
+
+    --sb-radius-sm: 0.7rem;
+    --sb-radius-md: 1.15rem;
+    --sb-radius-pill: 999px;
+    --sb-shadow-sm: 0 10px 30px rgba(0, 0, 0, 0.45);
+    --sb-shadow-hover: 0 18px 44px rgba(79, 70, 229, 0.35);
+    --sb-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --sb-focus-ring: 0 0 0 3px rgba(129, 140, 248, 0.25);
+    --sb-font-display: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color-scheme: dark;
+}
+
+.frc-card {
+    background: linear-gradient(180deg, rgba(12,12,26,0.94) 0%, rgba(6,6,16,0.96) 100%);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid var(--sb-border);
+    border-left: 5px solid var(--sb-primary);
+    border-radius: var(--sb-radius-md);
+    box-shadow: var(--sb-shadow-sm);
+    transition: var(--sb-transition);
+}
+
+.frc-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sb-shadow-hover);
+    border-left-color: var(--sb-primary-light);
+}
+
+.frc-body {
+    padding: 8px 12px;
+}
+
+.frc-leg-label {
+    color: var(--sb-text-muted);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0 0 6px 0;
+}
+
+.frc-leg-divider {
+    border: none;
+    border-top: 1px dashed var(--sb-border-strong);
+    margin: 10px 0;
+}
+
+/* Airline / flight number */
+.frc-airline-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.frc-airline-logo {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    object-fit: contain;
+    background: rgba(255,255,255,0.06);
+    padding: 3px;
+    box-sizing: border-box;
+}
+
+.frc-airline-logo-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--sb-font-display);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--sb-primary-light);
+    background: rgba(79, 70, 229, 0.14);
+    border: 1px solid var(--sb-border-strong);
+}
+
+.frc-airline {
+    color: var(--sb-text-strong);
+    font-family: var(--sb-font-display);
+    font-weight: 700;
+    margin: 0 0 2px 0;
+}
+
+.frc-flight-number {
+    color: var(--sb-text-muted);
+    margin: 0 0 8px 0;
+}
+
+.frc-badge {
+    --slds-c-badge-color-background: rgba(255,255,255,0.065);
+    --slds-c-badge-text-color: var(--sb-text-strong);
+}
+
+.frc-badge-roundtrip {
+    --slds-c-badge-color-background: var(--sb-primary);
+    --slds-c-badge-text-color: #FFFFFF;
+}
+
+.frc-badge-oneway {
+    --slds-c-badge-color-background: rgba(255,255,255,0.065);
+    --slds-c-badge-text-color: var(--sb-text-muted);
+}
+
+/* Eyebrow labels */
+.frc-eyebrow {
+    color: var(--sb-text-muted);
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin: 0 0 4px 0;
+}
+
+/* Route */
+.frc-route {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--sb-text-strong);
+    font-weight: 700;
+    margin: 0 0 2px 0;
+}
+
+.frc-route-icon {
+    width: 18px;
+    height: 18px;
+    fill: var(--sb-primary-light);
+    flex-shrink: 0;
+}
+
+.frc-muted {
+    color: var(--sb-text-muted);
+    margin: 0 0 2px 0;
+}
+
+/* Timing */
+.frc-duration {
+    color: var(--sb-primary-light);
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin: 4px 0 0 0;
+}
+
+/* Price */
+.frc-price {
+    color: var(--sb-text-strong);
+    font-family: var(--sb-font-display);
+    font-weight: 700;
+    margin: 0 0 2px 0;
+}
+
+/* Select button */
+.frc-select-btn.slds-button {
+    background: var(--sb-gradient-brand);
+    border-color: transparent;
+    color: #FFFFFF;
+    border-radius: var(--sb-radius-pill);
+    transition: var(--sb-transition);
+    box-shadow: 0 10px 28px rgba(79, 70, 229, 0.4);
+}
+
+.frc-select-btn.slds-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 34px rgba(79, 70, 229, 0.55);
+}
+
+.frc-select-btn.slds-button:focus-visible {
+    outline: none;
+    box-shadow: var(--sb-focus-ring);
+}

@@ -1,0 +1,141 @@
+/* ==========================================================================
+   Passenger Details Form — "Aurora Night" dark premium theme
+   ========================================================================== */
+
+:host {
+    --sb-primary: #4F46E5;
+    --sb-primary-light: #818CF8;
+    --sb-primary-dark: #3730A3;
+    --sb-violet: #7C3AED;
+    --sb-cyan: #06B6D4;
+    --sb-accent: #FB923C;
+    --sb-gold: #F59E0B;
+    --sb-gradient-brand: linear-gradient(120deg, #2E2A8F 0%, #4C1D8F 50%, #075A73 100%);
+    --sb-surface: rgba(255,255,255,0.035);
+    --sb-border: rgba(255,255,255,0.10);
+    --sb-text-strong: #F5F5FF;
+    --sb-text-muted: #A6A8D4;
+    display: block;
+}
+
+.pdf-container {
+    display: block;
+}
+
+/* ---------- Header ---------- */
+.pdf-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.pdf-header-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0.5rem;
+    border-radius: 999px;
+    background: var(--sb-gradient-brand);
+    color: #FFFFFF;
+    flex-shrink: 0;
+    box-shadow: 0 8px 22px rgba(79, 70, 229, 0.45);
+}
+
+.pdf-title {
+    color: var(--sb-text-strong);
+    font-weight: 700;
+    font-family: 'Figtree', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.pdf-subtitle {
+    color: var(--sb-text-muted);
+    margin-top: 0.1rem;
+}
+
+/* ---------- Passenger card ---------- */
+.pdf-passenger-card {
+    background: linear-gradient(160deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.015) 100%);
+    border: 1px solid var(--sb-border);
+    border-left: 4px solid var(--sb-primary);
+    border-radius: 1.1rem;
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.32);
+    transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    animation: pdfRise .4s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+@keyframes pdfRise {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.pdf-passenger-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px rgba(79, 70, 229, 0.28);
+    border-color: rgba(129, 140, 248, 0.35);
+}
+
+/* Cycle accent color per passenger so multi-passenger bookings read distinctly */
+.pdf-passenger-card:nth-of-type(2) { border-left-color: var(--sb-cyan); }
+.pdf-passenger-card:nth-of-type(3) { border-left-color: var(--sb-accent); }
+.pdf-passenger-card:nth-of-type(4) { border-left-color: var(--sb-gold); }
+.pdf-passenger-card:nth-of-type(3n) { border-left-color: var(--sb-violet); }
+
+.pdf-passenger-header {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.pdf-passenger-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 999px;
+    background: var(--sb-gradient-brand);
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+}
+
+.pdf-passenger-title {
+    color: var(--sb-text-strong);
+    font-weight: 700;
+}
+
+.pdf-input {
+    --slds-c-input-color-border-focus: var(--sb-primary-light);
+    --slds-c-input-shadow-focus: 0 0 0 3px rgba(129, 140, 248, 0.25);
+    --slds-c-input-radius-border: 0.65rem;
+    --slds-c-input-color-background: rgba(255,255,255,0.035);
+    --slds-c-input-text-color: var(--sb-text-strong);
+    --slds-c-input-color-border: var(--sb-border);
+    --sds-c-input-label-color: var(--sb-text-muted);
+    --slds-c-input-label-color: var(--sb-text-muted);
+    color-scheme: dark;
+}
+
+/* ---------- Actions ---------- */
+.pdf-actions {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.pdf-btn-continue {
+    --slds-c-button-brand-color-background: var(--sb-primary);
+    --slds-c-button-brand-color-background-hover: var(--sb-primary-dark);
+    --slds-c-button-brand-color-border: var(--sb-primary);
+    --slds-c-button-radius-border: 999px;
+    transition: transform .18s ease, box-shadow .18s ease;
+    box-shadow: 0 10px 26px rgba(79, 70, 229, 0.4);
+}
+
+.pdf-btn-continue:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 32px rgba(79, 70, 229, 0.55);
+}

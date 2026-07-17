@@ -1,0 +1,147 @@
+<template>
+    <div class="pdf-container">
+
+        <div class="pdf-header slds-m-bottom_medium">
+            <svg class="pdf-header-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"></path>
+            </svg>
+            <div>
+                <h2 class="pdf-title slds-text-heading_medium">Passenger details</h2>
+                <p class="pdf-subtitle slds-text-body_small">Enter details for everyone travelling</p>
+            </div>
+        </div>
+
+        <template for:each={passengers} for:item="passenger" for:index="index">
+            <div key={passenger.key} class="pdf-passenger-card slds-m-bottom_medium">
+                <div class="pdf-passenger-header slds-m-bottom_small">
+                    <span class="pdf-passenger-number">{passenger.displayNumber}</span>
+                    <h3 class="pdf-passenger-title slds-text-heading_small">
+                        Passenger {passenger.displayNumber}
+                    </h3>
+                </div>
+
+                <lightning-layout multiple-rows="true" horizontal-align="spread">
+
+                    <lightning-layout-item size="12" medium-device-size="6" padding="around-small">
+                        <lightning-input
+                            class="pdf-input"
+                            label="First name"
+                            data-index={index}
+                            name="firstName"
+                            value={passenger.firstName}
+                            onchange={handleInputChange}
+                            required>
+                        </lightning-input>
+                    </lightning-layout-item>
+
+                    <lightning-layout-item size="12" medium-device-size="6" padding="around-small">
+                        <lightning-input
+                            class="pdf-input"
+                            label="Last name"
+                            data-index={index}
+                            name="lastName"
+                            value={passenger.lastName}
+                            onchange={handleInputChange}
+                            required>
+                        </lightning-input>
+                    </lightning-layout-item>
+
+                    <lightning-layout-item size="12" medium-device-size="6" padding="around-small">
+                        <lightning-input
+                            class="pdf-input"
+                            type="date"
+                            label="Date of birth"
+                            data-index={index}
+                            name="dateOfBirth"
+                            value={passenger.dateOfBirth}
+                            onchange={handleInputChange}
+                            required>
+                        </lightning-input>
+                    </lightning-layout-item>
+
+                    <lightning-layout-item size="12" medium-device-size="6" padding="around-small">
+                        <lightning-combobox
+                            class="pdf-input"
+                            label="Passenger type"
+                            data-index={index}
+                            name="passengerType"
+                            value={passenger.passengerType}
+                            options={passengerTypeOptions}
+                            onchange={handleInputChange}
+                            required>
+                        </lightning-combobox>
+                    </lightning-layout-item>
+
+                    <lightning-layout-item size="12" medium-device-size="6" padding="around-small">
+                        <lightning-input
+                            class="pdf-input"
+                            label="Passport number"
+                            data-index={index}
+                            name="passportNumber"
+                            value={passenger.passportNumber}
+                            onchange={handleInputChange}>
+                        </lightning-input>
+                    </lightning-layout-item>
+
+                    <lightning-layout-item size="12" medium-device-size="6" padding="around-small">
+                        <lightning-combobox
+                            class="pdf-input"
+                            label="Meal preference"
+                            data-index={index}
+                            name="mealPreference"
+                            value={passenger.mealPreference}
+                            options={mealOptions}
+                            onchange={handleInputChange}>
+                        </lightning-combobox>
+                    </lightning-layout-item>
+
+                    <template if:true={passenger.isPrimary}>
+                        <lightning-layout-item size="12" medium-device-size="6" padding="around-small">
+                            <lightning-input
+                                class="pdf-input"
+                                type="email"
+                                label="Email (used for your booking confirmation)"
+                                data-index={index}
+                                name="email"
+                                value={passenger.email}
+                                onchange={handleInputChange}
+                                required>
+                            </lightning-input>
+                        </lightning-layout-item>
+
+                        <lightning-layout-item size="12" medium-device-size="6" padding="around-small">
+                            <lightning-input
+                                class="pdf-input"
+                                type="tel"
+                                label="Phone"
+                                data-index={index}
+                                name="phone"
+                                value={passenger.phone}
+                                onchange={handleInputChange}
+                                required>
+                            </lightning-input>
+                        </lightning-layout-item>
+                    </template>
+
+                </lightning-layout>
+            </div>
+        </template>
+
+        <div class="pdf-actions slds-m-top_medium">
+            <lightning-button
+                label="Back"
+                icon-name="utility:back"
+                onclick={handleBack}>
+            </lightning-button>
+
+            <lightning-button
+                class="pdf-btn-continue slds-m-left_small"
+                variant="brand"
+                label="Continue to confirmation"
+                icon-name="utility:forward"
+                icon-position="right"
+                onclick={handleContinue}>
+            </lightning-button>
+        </div>
+    </div>
+</template>

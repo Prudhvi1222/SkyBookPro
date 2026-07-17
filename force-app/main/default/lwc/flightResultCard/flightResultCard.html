@@ -1,0 +1,118 @@
+<template>
+    <article class="frc-card slds-m-bottom_medium">
+        <div class="frc-body">
+
+            <template lwc:if={isRoundTrip}>
+                <p class="frc-leg-label">Outbound</p>
+            </template>
+
+            <div class="slds-grid slds-wrap slds-gutters slds-align_absolute-center">
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12">
+                    <div class="frc-airline-row">
+                        <template lwc:if={hasAirlineLogo}>
+                            <img class="frc-airline-logo" src={airlineLogoUrl} alt={displayAirline} />
+                        </template>
+                        <template lwc:else>
+                            <span class="frc-airline-logo frc-airline-logo-fallback">{airlineInitial}</span>
+                        </template>
+                        <div>
+                            <h3 class="frc-airline slds-text-heading_small">
+                                {displayAirline}
+                            </h3>
+                            <p class="frc-flight-number slds-text-body_small">
+                                Flight: {displayFlightNumber}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-wrap slds-grid_vertical-align-center" style="gap: 6px;">
+                        <lightning-badge class="frc-badge" label={displayCabinClass}></lightning-badge>
+                        <lightning-badge class={tripTypeBadgeClass} label={tripTypeLabel}></lightning-badge>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12">
+                    <p class="frc-eyebrow">Route</p>
+                    <p class="frc-route slds-text-heading_small">
+                        {offer.origin} → {offer.destination}
+                    </p>
+                    <p class="frc-muted slds-text-body_small">
+                        Stops: {displayStops}
+                    </p>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12">
+                    <p class="frc-eyebrow">Timing</p>
+                    <p class="frc-muted">Departure: {formattedDeparture}</p>
+                    <p class="frc-muted">Arrival: {formattedArrival}</p>
+                    <p class="frc-duration">Duration: {displayDuration}</p>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12 slds-text-align_right">
+                    <p class="frc-eyebrow">Price</p>
+                    <p class="frc-price slds-text-heading_medium">
+                        {offer.currency_x} {offer.price}
+                    </p>
+                    <p class="frc-muted slds-text-body_small">
+                        Seats available: {displaySeats}
+                    </p>
+
+                    <lightning-button
+                        class="frc-select-btn slds-m-top_small"
+                        variant="brand"
+                        label="Select"
+                        onclick={handleSelect}>
+                    </lightning-button>
+                </div>
+
+            </div>
+
+            <template lwc:if={isRoundTrip}>
+                <hr class="frc-leg-divider" />
+                <p class="frc-leg-label">Return</p>
+
+                <div class="slds-grid slds-wrap slds-gutters slds-align_absolute-center">
+
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12">
+                        <div class="frc-airline-row">
+                            <template lwc:if={hasReturnAirlineLogo}>
+                                <img class="frc-airline-logo" src={returnAirlineLogoUrl} alt={displayReturnAirline} />
+                            </template>
+                            <template lwc:else>
+                                <span class="frc-airline-logo frc-airline-logo-fallback">{returnAirlineInitial}</span>
+                            </template>
+                            <div>
+                                <h3 class="frc-airline slds-text-heading_small">
+                                    {displayReturnAirline}
+                                </h3>
+                                <p class="frc-flight-number slds-text-body_small">
+                                    Flight: {displayReturnFlightNumber}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12">
+                        <p class="frc-eyebrow">Route</p>
+                        <p class="frc-route slds-text-heading_small">
+                            {offer.destination} → {offer.origin}
+                        </p>
+                        <p class="frc-muted slds-text-body_small">
+                            Stops: {displayReturnStops}
+                        </p>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12">
+                        <p class="frc-eyebrow">Timing</p>
+                        <p class="frc-muted">Departure: {formattedReturnDeparture}</p>
+                        <p class="frc-muted">Arrival: {formattedReturnArrival}</p>
+                        <p class="frc-duration">Duration: {displayReturnDuration}</p>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-1 slds-medium-size_3-of-12"></div>
+
+                </div>
+            </template>
+        </div>
+    </article>
+</template>

@@ -1,0 +1,120 @@
+<template>
+    <lightning-card title="Booking Details" icon-name="standard:orders" class="bdv-card">
+        <div class="slds-p-around_medium bdv-container">
+
+            <template if:true={isLoading}>
+                <div class="bdv-loading">
+                    <lightning-spinner
+                        alternative-text="Loading booking details"
+                        size="medium">
+                    </lightning-spinner>
+                </div>
+            </template>
+
+            <template if:true={booking}>
+                <div class="bdv-section bdv-section-summary slds-m-bottom_medium">
+                    <h2 class="bdv-section-title">
+                        <svg class="bdv-section-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path fill="currentColor" d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                        </svg>
+                        Booking Summary
+                    </h2>
+
+                    <div class="bdv-grid">
+                        <div class="bdv-item"><span class="bdv-label">Booking Reference</span><span class="bdv-value">{booking.Name}</span></div>
+                        <div class="bdv-item"><span class="bdv-label">PNR</span><span class="bdv-value">{booking.PNR__c}</span></div>
+                        <div class="bdv-item"><span class="bdv-label">Status</span><span class="bdv-value bdv-status-pill">{booking.Booking_Status__c}</span></div>
+                        <div class="bdv-item"><span class="bdv-label">Seat Class</span><span class="bdv-value">{booking.Seat_Class__c}</span></div>
+                        <div class="bdv-item"><span class="bdv-label">Number of Seats</span><span class="bdv-value">{booking.Number_Of_Seats__c}</span></div>
+                        <div class="bdv-item"><span class="bdv-label">Booking Date</span><span class="bdv-value">{booking.Booking_Date__c}</span></div>
+                        <div class="bdv-item"><span class="bdv-label">Base Fare</span><span class="bdv-value">{booking.Base_Fare__c}</span></div>
+                        <div class="bdv-item"><span class="bdv-label">Taxes/Fees</span><span class="bdv-value">{booking.Taxes_Fees__c}</span></div>
+                        <div class="bdv-item bdv-item-total"><span class="bdv-label">Total Amount</span><span class="bdv-value bdv-total">{booking.Total_Amount__c}</span></div>
+                    </div>
+                </div>
+
+                <div class="bdv-section slds-m-bottom_medium">
+                    <h2 class="bdv-section-title">
+                        <svg class="bdv-section-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path fill="currentColor" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"></path>
+                        </svg>
+                        Passenger
+                    </h2>
+
+                    <div class="bdv-grid">
+                        <div class="bdv-item"><span class="bdv-label">Name</span><span class="bdv-value">{booking.Passenger__r.FirstName} {booking.Passenger__r.LastName}</span></div>
+                        <div class="bdv-item"><span class="bdv-label">Email</span><span class="bdv-value">{booking.Passenger__r.Email}</span></div>
+                    </div>
+                </div>
+
+                <div class="bdv-section bdv-section-flight slds-m-bottom_medium">
+                    <svg class="bdv-flight-watermark" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path fill="currentColor" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"></path>
+                    </svg>
+                    <h2 class="bdv-section-title bdv-section-title-light">
+                        {flightSectionTitle}
+                    </h2>
+
+                    <div class="bdv-grid bdv-grid-flight">
+                        <div class="bdv-item"><span class="bdv-label">Flight</span><span class="bdv-value">{booking.Flight__r.Name}</span></div>
+                        <div class="bdv-item"><span class="bdv-label">Airline</span><span class="bdv-value">{booking.Flight__r.Airline_Name__c}</span></div>
+                        <div class="bdv-item">
+                            <span class="bdv-label">Route</span>
+                            <span class="bdv-value">{booking.Flight__r.Origin_Airport__c} → {booking.Flight__r.Destination_Airport__c}</span>
+                        </div>
+                        <div class="bdv-item"><span class="bdv-label">Departure</span><span class="bdv-value">{departureDisplay}</span></div>
+                        <div class="bdv-item"><span class="bdv-label">Arrival</span><span class="bdv-value">{arrivalDisplay}</span></div>
+                        <div class="bdv-item"><span class="bdv-label">Offer Id</span><span class="bdv-value">{booking.Flight__r.Amadeus_Offer_ID__c}</span></div>
+                    </div>
+                </div>
+
+                <template if:true={isRoundTrip}>
+                    <div class="bdv-section bdv-section-flight slds-m-bottom_medium">
+                        <svg class="bdv-flight-watermark" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path fill="currentColor" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"></path>
+                        </svg>
+                        <h2 class="bdv-section-title bdv-section-title-light">
+                            Return Flight
+                        </h2>
+
+                        <div class="bdv-grid bdv-grid-flight">
+                            <div class="bdv-item"><span class="bdv-label">Flight</span><span class="bdv-value">{returnSegment.Flight_Number__c}</span></div>
+                            <div class="bdv-item"><span class="bdv-label">Airline</span><span class="bdv-value">{returnSegment.Carrier_Code__c}</span></div>
+                            <div class="bdv-item">
+                                <span class="bdv-label">Route</span>
+                                <span class="bdv-value">{returnSegment.Origin__c} → {returnSegment.Destination__c}</span>
+                            </div>
+                            <div class="bdv-item"><span class="bdv-label">Departure</span><span class="bdv-value">{returnSegment.departureDisplay}</span></div>
+                            <div class="bdv-item"><span class="bdv-label">Arrival</span><span class="bdv-value">{returnSegment.arrivalDisplay}</span></div>
+                        </div>
+                    </div>
+                </template>
+
+                <template if:true={booking.Cancellation_Reason__c}>
+                    <div class="bdv-cancel-box">
+                        <h2 class="bdv-section-title bdv-section-title-warning">
+                            Cancellation Details
+                        </h2>
+                        <p>{booking.Cancellation_Reason__c}</p>
+                    </div>
+                </template>
+            </template>
+
+            <template if:true={errorMessage}>
+                <div class="slds-notify slds-notify_alert slds-alert_error bdv-error" role="alert">
+                    <span class="slds-assistive-text">Error</span>
+                    {errorMessage}
+                </div>
+            </template>
+
+            <div class="slds-m-top_medium bdv-actions">
+                <lightning-button
+                    class="bdv-btn-close"
+                    label="Close"
+                    onclick={handleClose}>
+                </lightning-button>
+            </div>
+
+        </div>
+    </lightning-card>
+</template>
