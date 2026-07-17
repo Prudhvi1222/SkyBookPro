@@ -117,4 +117,4 @@ force-app/
 
 ## License
 
-Add your chosen license here (e.g. MIT).
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
