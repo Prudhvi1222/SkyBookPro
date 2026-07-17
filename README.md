@@ -1,58 +1,120 @@
-# Salesforce DX Project
+# SkyBook Pro
 
-Salesforce DX is a development approach that brings source-driven development, team collaboration, and continuous integration to the Salesforce Platform. Instead of working directly in an org through a web browser, you work with metadata as source files in a local DX project, track changes in version control, and deploy through automated processes.
+SkyBook Pro is a Lightning Web Components app built on Salesforce for searching, booking, and managing flights. It features a custom dark "Aurora Night" theme with per-component display fonts, live airport autocomplete and flight search via the Duffel API, round-trip booking support, an agent dashboard with real-time booking stats, cancellation/refund tracking, and a full Jest test suite covering all 13 LWC components.
 
-This project template gets you started with the tools and structure you need to build Salesforce applications using source control, scratch orgs, and the Salesforce CLI.
+## Features
+
+- Live airport autocomplete and flight search powered by the Duffel API
+- Round-trip and one-way booking flows
+- Passenger details capture and booking confirmation
+- Agent dashboard with real-time booking statistics
+- Cancellation and refund status tracking
+- Custom dark "Aurora Night" theme
+- Full Jest unit test coverage across all components
+
+## Components
+
+| Component | Purpose |
+|---|---|
+| `skyBookApp` | Top-level orchestrator |
+| `flightSearchForm` | Flight search input and filters |
+| `flightResultsList` / `flightResultCard` | Displays search results |
+| `passengerDetailsForm` | Captures passenger information |
+| `bookingConfirmation` | Confirms booking details before submission |
+| `bookingSuccess` | Post-booking success screen |
+| `myBookingsDashboard` | Customer's booking history and status |
+| `agentDashboard` | Real-time booking stats for agents |
+| `bookingDetailView` | Detailed view of a single booking |
+| `cancellationModal` | Handles booking cancellations |
+| `refundStatusTracker` | Tracks refund progress |
+| `customDatatable` | Reusable data table component |
+
+## Tech Stack
+
+- Salesforce DX
+- Lightning Web Components (LWC)
+- Apex
+- Lightning Message Service
+- Duffel API (flight data)
+- Jest (`sfdx-lwc-jest`) for unit testing
 
 ## Prerequisites
 
-Before you start, make sure you have:
+- [Salesforce CLI (sf)](https://developer.salesforce.com/tools/salesforcecli)
+- Node.js and npm
+- A Salesforce org (Developer Edition, sandbox, or scratch org)
+- A Duffel API key
 
-- **Salesforce CLI** - Download from [developer.salesforce.com/tools/salesforcecli](https://developer.salesforce.com/tools/salesforcecli). See [Install Salesforce CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_install_cli.htm) for details.
-- **VS Code with Salesforce Extension Pack** - See [Installation Instructions](https://developer.salesforce.com/docs/platform/sfvscode-extensions/guide/install.html) for details. Includes the Agentforce Vibes extension.
-- **A development org** - Sign up for a free Developer Edition org [here](https://developer.salesforce.com/signup).
-- **Dev Hub enabled** (optional, required to create scratch orgs) - You can enable Dev Hub in your development org under Setup > Dev Hub.  See [Provide Developers Access to Salesforce DX Tools](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_setup_dx_tools.htm).
+## Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/<your-username>/SkyBookPro-LWC.git
+   cd SkyBookPro-LWC
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Authenticate with your Salesforce org:
+   ```bash
+   sf org login web --alias SkyBookOrg --instance-url https://login.salesforce.com
+   ```
+
+4. Deploy the source to your org:
+   ```bash
+   sf project deploy start --target-org SkyBookOrg
+   ```
+
+5. Assign any required permission sets (if applicable):
+   ```bash
+   sf org assign permset --name SkyBookPro_Permissions --target-org SkyBookOrg
+   ```
+
+6. Configure your Duffel API key in the appropriate Custom Metadata Type / Named Credential in Setup.
+
+## Running Tests
+
+Run the full Jest test suite:
+```bash
+npm run test:unit
+```
+
+Run tests in watch mode:
+```bash
+npm run test:unit:watch
+```
+
+Run tests with coverage:
+```bash
+npm run test:unit:coverage
+```
 
 ## Project Structure
 
-Your DX project follows this structure:
+```
+force-app/
+└── main/
+    └── default/
+        ├── lwc/
+        │   ├── skyBookApp/
+        │   ├── flightSearchForm/
+        │   ├── flightResultsList/
+        │   ├── flightResultCard/
+        │   ├── passengerDetailsForm/
+        │   ├── bookingConfirmation/
+        │   ├── bookingSuccess/
+        │   ├── myBookingsDashboard/
+        │   ├── agentDashboard/
+        │   ├── bookingDetailView/
+        │   ├── cancellationModal/
+        │   ├── refundStatusTracker/
+        │   └── customDatatable/
+        └── classes/
+```
 
-- **`force-app/main/default/`** - Your metadata source files live in this default package directory. You can configure additional package directories in the `sfdx-project.json` file.
-- **`config/`** - Scratch org definitions and project settings
-- **`scripts/`** - Automation scripts for common tasks
-- **`sfdx-project.json`** - Project manifest that defines package directories, namespace, API version, and other project-level settings
+## License
 
-See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm).
-
-## Get Started
-
-Ready to start developing? The [Get Started with Salesforce DX](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_get_started_dx.htm) guide walks you through your first project, from creating a scratch org to creating a simple Apex class or LWC to deploying your code to a sandbox.
-
-## Common Salesforce CLI Commands
-
-Here are common CLI commands that you'll use the most:
-
-- `sf org login web`: Authorize an org
-- `sf org open`: Open your org in a browser
-- `sf org create scratch`: Create a scratch org
-- `sf project deploy start`: Deploy metadata to your org
-- `sf project retrieve start`: Retrieve metadata from your org
-- `sf template generate <artifact>`: Scaffold new components, such as Apex classes and triggers, LWC components, Lightning apps, and more
-- `sf apex <command>`: Run Apex tests, run anonymous Apex blocks, and view logs
-- `sf data <command>`: Work with test data
-- `sf alias <command>`: Manage org aliases
-- `sf config <command>`: Configure CLI settings
-
-## Use Agentforce Vibes to Build Lightning Apps
-
-Transform your ideas into custom Lightning apps that extend CRM workflows directly in Lightning Experience. Through natural conversations with Agentforce Vibes, implement custom objects and fields, complex business logic, and dynamic UI components. See [Build a Lightning App Using Agentforce Vibes](https://developer.salesforce.com/docs/platform/einstein-for-devs/guide/lexapp-overview.html).
-
-## Additional Resources
-
-- [Agentforce Vibes Developer Guide](https://developer.salesforce.com/docs/platform/einstein-for-devs/guide/einstein-overview.html)
-- [Salesforce CLI Installation Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/)
-- [Salesforce CLI Plugin Development Guide](https://developer.salesforce.com/docs/platform/salesforce-cli-plugin/guide/conceptual-overview.html)
-- [Salesforce VS Code Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-
+Add your chosen license here (e.g. MIT).
